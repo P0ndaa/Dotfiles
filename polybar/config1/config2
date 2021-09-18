@@ -1,0 +1,211 @@
+;---WAIFU---;
+;----BAR----;
+
+[bar/waifu]
+
+enable-ipc = true
+
+;------------;
+; DIMENSIONS ;
+;------------;
+
+width = 100%
+height = 30
+offset-y = 0
+offset-x = 0
+
+;----------;
+; LOCATION ;
+;----------;
+
+bottom = false
+monitor = ${env:MONITOR:}
+
+spacing = 0
+padding-left = 0
+padding-right = 0
+module-margin-left = 0
+
+font-0 = "Hack Nerd Font:style=Regular:size=10;3"
+font-1 = "FontAwesome:style=Regular:size=10;3"
+font-2 = "Sarasa Fixed Slab CL Semibold:style:Semibold:size=12;3"
+font-3 = "Sarasa Fixed Slab CL Semibold:style:Semibold:size=11;3"
+
+;--------;
+; COLORS ;
+;--------;
+
+foreground = #ffffff
+background = #000000
+
+line-size = 3
+
+;---------------;
+; MISCELLANEOUS ;
+;---------------;
+
+fixed-center = true
+
+modules-left = i3 space2 spotify space2 timer
+modules-center = polywins 
+modules-right = network space xbacklight space battery space cpu space ram space time
+
+;---------;
+; MODULES ;
+;---------;
+
+[module/battery]
+type = internal/battery
+
+full-at = 99
+
+battery = BAT0
+adapter = AC0
+poll-interval = 5
+
+format-full = <ramp-capacity>  <label-full>
+format-background = 
+label-full = %percentage%%
+label-full-font = 4
+
+format-charging = <animation-charging>  <label-charging>
+format-charging-background = 
+label-charging = %percentage%%
+label-charging-font = 4
+
+format-discharging = <ramp-capacity>  <label-discharging>
+format-discharging-background = ${colors.white}
+label-discharging = %percentage%%
+label-discharging-font = 4
+
+ramp-capacity-0 = ""
+ramp-capacity-1 = ""
+ramp-capacity-2 = ""
+ramp-capacity-3 = ""
+ramp-capacity-4 = ""
+
+animation-charging-0 = ""
+animation-charging-1 = ""
+animation-charging-2 = ""
+animation-charging-3 = ""
+animation-charging-4 = ""
+
+animation-discharging-4 = ""
+animation-discharging-3 = ""
+animation-discharging-2 = ""
+animation-discharging-1 = ""
+animation-discharging-0 = ""
+
+[module/time]
+type = internal/date
+
+label = %date%
+label-padding-right = 1
+label-font = 4
+date = %H:%M
+date-alt = %d-%m-%Y
+
+
+[module/i3]
+type = internal/i3
+
+pin-workspaces = false
+strip-wsnumbers = true
+wrapping-scroll = false 
+index-sort = true
+
+label-font = 4
+
+label-focused = %name%
+label-focused-underline = #ffffff
+label-focused-font = 3
+label-focused-padding = 1
+
+label-unfocused = %name%
+label-unfocused-font = 4
+label-unfocused-padding = 1
+
+label-visible = %name%
+label-visible-font = 3
+label-visible-padding = 1
+
+label-urgent = %name%
+label-urgent-underline = #ff0000
+label-urgent-font = 3
+label-urgent-padding = 1
+
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+
+format = <label>
+label = %percentage%%
+label-font = 4
+label-padding-left = 1
+
+format-prefix = ""
+
+[module/ram]
+type = internal/memory
+interval = 3
+
+format = <label>
+label = %percentage_used%%
+label-font = 4
+label-padding-left = 1
+
+format-prefix = ""
+
+[module/polywins]
+type = custom/script
+tail = true
+exec = sh ~/.config/polybar/scripts/polywins.sh
+
+format = <label>
+label = %output%
+label-padding-left = 1
+label-font = 3
+
+[module/xbacklight]
+type = internal/xbacklight
+output = ${env:MONITOR:}
+enable-scroll = true
+
+format = <ramp><label>
+
+label = %percentage%%
+label-padding-left = 1
+label-font = 4 
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+
+[module/space]
+type = custom/text
+content = 
+content-padding = 1
+
+[module/network]
+type = internal/network
+interface = wlp3s0
+interval = 3
+
+label-connected = %downspeed% %upspeed%
+label-connected-font = 4
+label-disconnected = :(
+label-disconnected-font = 4
+
+[module/space2]
+type = custom/text
+content = 
+content-padding = 1
+
+[module/spotify]
+type = custom/script
+tail = true
+; prefix symbol is shown before the text
+format = <label>
+exec = ~/.config/polybar/scripts/scroll_spotify_status.sh
+label-font = 4

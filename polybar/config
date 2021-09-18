@@ -1,0 +1,212 @@
+;---WAIFU---;
+;----BAR----;
+
+[bar/waifu]
+
+enable-ipc = true
+
+;------------;
+; DIMENSIONS ;
+;------------;
+
+width = 100%
+height = 30
+offset-y = 0
+offset-x = 0
+
+;----------;
+; LOCATION ;
+;----------;
+
+bottom = false
+monitor = ${env:MONITOR:}
+
+spacing = 0
+padding-left = 0
+padding-right = 0
+module-margin-left = 0
+
+font-0 = "Hack Nerd Font:style=Regular:size=10;3"
+font-1 = "FontAwesome:style=Regular:size=10;3"
+font-2 = "Sarasa Fixed Slab CL Semibold:style:Semibold:size=12;3"
+
+;--------;
+; COLORS ;
+;--------;
+
+background = #ffffff
+foreground = #181818
+
+line-size = 3
+
+;---------------;
+; MISCELLANEOUS ;
+;---------------;
+
+fixed-center = true
+
+modules-left = i3
+modules-center = polywins 
+modules-right = network xbacklight battery cpu ram time
+
+;---------;
+; MODULES ;
+;---------;
+
+[module/battery]
+type = internal/battery
+
+full-at = 99
+
+battery = BAT0
+adapter = AC0
+poll-interval = 5
+
+format-full = <ramp-capacity>  <label-full>
+format-full-padding = 1
+format-background = 
+label-full = %percentage%%
+label-full-font = 3
+
+format-charging = <animation-charging>  <label-charging>
+format-charging-padding = 1
+format-charging-background = 
+label-charging = %percentage%%
+label-charging-font = 3
+
+format-discharging = <ramp-capacity>  <label-discharging>
+format-discharging-padding = 1
+format-discharging-background = ${colors.white}
+label-discharging = %percentage%%
+label-discharging-font = 3
+
+ramp-capacity-0 = ""
+ramp-capacity-1 = ""
+ramp-capacity-2 = ""
+ramp-capacity-3 = ""
+ramp-capacity-4 = ""
+
+animation-charging-0 = ""
+animation-charging-1 = ""
+animation-charging-2 = ""
+animation-charging-3 = ""
+animation-charging-4 = ""
+
+animation-discharging-4 = ""
+animation-discharging-3 = ""
+animation-discharging-2 = ""
+animation-discharging-1 = ""
+animation-discharging-0 = ""
+
+[module/time]
+type = internal/date
+
+label = %date%
+label-padding = 0
+label-font = 3
+date = %H:%M
+date-alt = %d-%m-%Y
+
+format-padding = 1
+
+[module/i3]
+type = internal/i3
+
+pin-workspaces = false
+strip-wsnumbers = true
+wrapping-scroll = false 
+index-sort = true
+
+label-font = 3
+
+label-focused = %name%
+label-focused-underline = #181818
+label-focused-font = 3
+label-focused-padding = 1
+
+label-unfocused = %name%
+label-unfocused-font = 3
+label-unfocused-padding = 1
+
+label-visible = %name%
+label-visible-font = 3
+label-visible-padding = 1
+
+label-urgent = %name%
+label-urgent-underline = #ff0000
+label-urgent-font = 3
+label-urgent-padding = 1
+
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+
+format = <label>
+label = %percentage%%
+label-padding = 1
+label-font = 3
+
+format-prefix = ""
+format-prefix-padding = 1
+
+[module/ram]
+type = internal/memory
+interval = 3
+
+format = <label>
+label = %percentage_used%%
+label-padding = 1
+label-font = 3
+
+format-prefix = ""
+format-prefix-padding = 1
+
+[module/xwindow]
+type = internal/xwindow
+
+format = <label>
+format-padding = 1
+
+label = %title%
+label-maxlen = 40
+label-font = 3
+
+label-empty =
+
+[module/polywins]
+type = custom/script
+tail = true
+exec = sh ~/.config/polybar/scripts/polywins.sh
+
+format = <label>
+label = %output%
+label-padding = 1
+label-font = 3
+
+[module/xbacklight]
+type = internal/xbacklight
+output = ${env:MONITOR:}
+enable-scroll = true
+
+format = <bar> <label>
+format-padding = 1
+
+label = %percentage%%
+label-padding = 1
+label-font = 3 
+
+bar-width = 5
+bar-indicator = |
+bar-fill = -
+bar-empty = -
+
+[module/network]
+type = internal/network
+interface = wlp3s0
+udspeed-minwidth = 5
+
+format-connected = <label-connected>
+format-disconnected = <label-disconnected>
+
+label-connected = %essid%
+label-disconnected = /
